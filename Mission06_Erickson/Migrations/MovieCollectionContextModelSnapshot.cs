@@ -16,21 +16,38 @@ namespace Mission6_Erickson.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "10.0.3");
 
+            modelBuilder.Entity("Mission06_Erickson.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("Mission06_Erickson.Models.Movie", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("CopiedToPlex")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<bool?>("Edited")
+                    b.Property<bool>("Edited")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("LentTo")
@@ -53,36 +70,20 @@ namespace Mission6_Erickson.Migrations
 
                     b.HasKey("MovieId");
 
-                    b.ToTable("Movies");
+                    b.HasIndex("CategoryId");
 
-                    b.HasData(
-                        new
-                        {
-                            MovieId = 1,
-                            Category = "Fantasy",
-                            Director = "John Musker",
-                            Rating = "PG",
-                            Title = "Hercules",
-                            Year = 1997
-                        },
-                        new
-                        {
-                            MovieId = 2,
-                            Category = "Action",
-                            Director = "Jon Turteltaub",
-                            Rating = "PG",
-                            Title = "National Treasure",
-                            Year = 2004
-                        },
-                        new
-                        {
-                            MovieId = 3,
-                            Category = "Action",
-                            Director = "Ruben Fleischer",
-                            Rating = "PG-13",
-                            Title = "Uncharted",
-                            Year = 2022
-                        });
+                    b.ToTable("Movies");
+                });
+
+            modelBuilder.Entity("Mission06_Erickson.Models.Movie", b =>
+                {
+                    b.HasOne("Mission06_Erickson.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }

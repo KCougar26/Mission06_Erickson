@@ -1,0 +1,28 @@
+@model Movie
+@{
+    ViewData["Title"] = "Confirm Deletion";
+}
+
+<div class="container mt-5">
+    <div class="card border-danger">
+        <div class="card-header bg-danger text-white">
+            <h3>Confirm Deletion</h3>
+        </div>
+        <div class="card-body">
+            <p class="lead">Are you sure you want to delete the following movie from the collection?</p>
+            
+            <ul class="list-group list-group-flush mb-4">
+                <li class="list-group-item"><strong>Title:</strong> @Model.Title</li>
+                <li class="list-group-item"><strong>Year:</strong> @Model.Year</li>
+                <li class="list-group-item"><strong>Director:</strong> @Model.Director</li>
+            </ul>
+
+            <form method="post" asp-action="Delete">
+                <input type="hidden" asp-for="MovieId" />
+                
+                <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                <a asp-action="MovieList" class="btn btn-secondary">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -5,18 +5,22 @@
 namespace Mission6_Erickson.Migrations
 {
     /// <inheritdoc />
-    public partial class UpdateMovieModel : Migration
+    public partial class BaselineMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-
+            
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Movies");
 
+            migrationBuilder.DropTable(
+                name: "Categories");
         }
     }
 }
